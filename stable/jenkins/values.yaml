@@ -48,9 +48,12 @@ Master:
   ContainerPort: 8080
   # Enable Kubernetes Liveness and Readiness Probes
   HealthProbes: true
-  HealthProbesTimeout: 60
-  # ~2 minutes to allow Jenkins to restart when upgrading plugins
-  HealthProbeLivenessFailureThreshold: 12
+  HealthProbesInterval: 15
+  HealthProbesTimeout: 15
+  HealthProbesInitialDelay: 60
+  HealthProbesSuccessThreshold: 2
+  HealthProbesFailureThreshold: 3
+
   SlaveListenerPort: 50000
   DisabledAgentProtocols:
     - JNLP-connect

@@ -122,18 +122,24 @@ spec:
               name: jmx
             {{- end }}
 {{- if .Values.Master.HealthProbes }}
-          livenessProbe:
-            httpGet:
-              path: /login
-              port: http
-            initialDelaySeconds: {{ .Values.Master.HealthProbesTimeout }}
-            timeoutSeconds: 5
-            failureThreshold: {{ .Values.Master.HealthProbeLivenessFailureThreshold }}
-          readinessProbe:
-            httpGet:
-              path: /login
-              port: http
-            initialDelaySeconds: {{ .Values.Master.HealthProbesTimeout }}
+  livenessProbe:
+    httpGet:
+      path: /login
+      port: http
+    initialDelaySeconds: {{ .Values.Master.HealthProbesInitialDelay }}
+    periodSeconds: {{ .Values.Master.HealthProbesInterval }}
+    timeoutSeconds: {{ .Values.Master.HealthProbesTimeout }}
+    successThreshold: {{ .Values.Master.HealthProbesSuccessThreshold }}
+    failureThreshold: {{ .Values.Master.HealthProbesFailureThreshold }}
+  readinessProbe:
+    httpGet:
+      path: /login
+      port: http
+    initialDelaySeconds: {{ .Values.Master.HealthProbesInitialDelay }}
+    periodSeconds: {{ .Values.Master.HealthProbesInterval }}
+    timeoutSeconds: {{ .Values.Master.HealthProbesTimeout }}
+    successThreshold: {{ .Values.Master.HealthProbesSuccessThreshold }}
+    failureThreshold: {{ .Values.Master.HealthProbesFailureThreshold }}
 {{- end }}
           resources:
             requests:
